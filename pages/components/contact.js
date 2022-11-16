@@ -2,13 +2,10 @@
 import Head from "next/head";
 
 //component
-import MainList from "./components/mainList";
-import IconFilter from "./components/iconFilter";
-import Header from "./components/header";
-import ScrollToTop from "./components/scrollToTop";
+import Header from "./header";
 
-export default function Home() {
-    return (
+const Contact = () => {
+    return(
         <div className="bg-slate-900 overflow-hidden flex min-h-screen">
             <Head>
                 <title>30Hey - 인기 동영상 정보 플랫폼</title>
@@ -24,11 +21,15 @@ export default function Home() {
             <div className="flex flex-col w-full">
                 <div className="w-full md:w-[90%] lg:w-[80%] xl:w-[70%] 2xl:w-[60%] mx-auto flex-1 p-3">
                     <Header></Header>
-                    <IconFilter></IconFilter>
-                    <MainList></MainList>
+                    <div className="mt-12 text-center flex flex-col gap-8 max-w-md mx-auto">
+                        <h1 className="text-5xl font-bold py-4">Contact me</h1>
+                        <p>제안, 기타 요청사항이 있으시면 언제든지 문의해주세요. <br></br>저는 당신의 소식을 듣게 되어 기쁩니다😊</p>
+                        <address><a target={"_blank"} href="mailto:jds3567@gmail.com">email : jds3567@gmail.com</a></address>
+                        <address><a target={"_blank"} href="https://github.com/dongseob/30Hey">github : github.com/dongseob/30Hey</a></address>
+                    </div>
                 </div>
             </div>
-            <ScrollToTop></ScrollToTop>
         </div>
-    );
+    )
 }
+export default Contact;

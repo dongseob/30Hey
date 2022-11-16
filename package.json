@@ -1,18 +1,33 @@
 {
-  "name": "30hey",
+  "name": "01_videogllo",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "cross-env ANALYZE=true npm run build",
+    "serve": "serve .next/analyze"
   },
   "dependencies": {
-    "eslint": "8.27.0",
-    "eslint-config-next": "13.0.3",
-    "next": "13.0.3",
+    "@next/bundle-analyzer": "^13.0.2",
+    "@tailwindcss/line-clamp": "^0.4.2",
+    "animate.css": "^4.1.1",
+    "axios": "^1.1.2",
+    "cross-env": "^7.0.3",
+    "next": "12.3.1",
+    "next-connect": "^0.13.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "recoil": "^0.7.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.12",
+    "eslint": "8.24.0",
+    "eslint-config-next": "12.3.1",
+    "postcss": "^8.4.17",
+    "tailwindcss": "^3.1.8"
   }
 }
