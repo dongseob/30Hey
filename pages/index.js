@@ -14,7 +14,7 @@ export default function Home() {
                 <title>30Hey - 인기 동영상 정보 플랫폼</title>
                 <link rel="icon" href="/image/logo/logo_small.png" />
                 <meta property="og:title" content="30Hey" key="title" />
-                <meta property="og:image" content="/30Hey.jpg" />
+                <meta property="og:image" content="/image/30Hey.jpg" />
             </Head>
 
             <div className="flex flex-col w-full">
