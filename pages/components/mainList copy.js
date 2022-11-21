@@ -13,21 +13,21 @@ import { useRecoilState } from "recoil";
 const MainList = () => {
     const [data, setData] = useState([]);
     const [SELECTICONFILTER] = useRecoilState(SELECT_ICON_FILTER);
-    const [viewCount, setViewCount] = useState(5); //현재 출력 개수
+    const [viewCount, setViewCount] = useState(null); //현재 출력 개수
+    const [dataLength, setDataLength] = useState(null); //데이터 총 개수
     const moreRef = useRef(null);
 
     useEffect(() => {
         fetchData();
     }, []);
 
-    //최초 데이터 요청
     const fetchData = async () => {
         await axios({
             method: "GET",
             url: "/api/main",
             params: {
-                count: 5, //요청 데이터 개수
-                filter: "all", //요청 플랫폼 필터
+                count: 8, //요청 데이터 개수
+                filter: SELECTICONFILTER.toString(), //요청 플랫폼 필터
             },
         }).then((res) => {
             console.log(res.data.result);
@@ -35,95 +35,79 @@ const MainList = () => {
         });
     };
 
-    // useEffect(() => {
-    //     console.log(data);
-    // }, [data]);
-
     useEffect(() => {
-        const fnMainFilterList = async () => {
-            if (SELECTICONFILTER.length > 0) {
-                //아이콘 필터가 적용되었을 때
-                await axios({
-                    method: "GET",
-                    url: "/api/main",
-                    params: {
-                        count: viewCount, //요청 데이터 개수
-                        filter: SELECTICONFILTER.toString(), //요청 플랫폼 필터
-                    },
-                })
-                    .then((res) => {
-                        let result = res.data.result;
-                        setData(result);
-                    })
-                    .catch((e) => {
-                        console.log("error: ", e);
-                    });
-            } else {
-                //아이콘 필터가 적용되었을 때
-                // const fnMainFilterList = async () => {
-                await axios({
-                    method: "GET",
-                    url: "/api/main",
-                    params: {
-                        count: viewCount, //요청 데이터 개수
-                        filter: "all", //요청 플랫폼 필터
-                    },
-                })
-                    .then((res) => {
-                        let result = res.data.result;
-                        setData(result);
-                    })
-                    .catch((e) => {
-                        console.log("error: ", e);
-                    });
-            }
-        };
+        console.log(data);
+    }, [data]);
 
-        fnMainFilterList();
+    //아이콘 필터가 적용되었을 때
+    useEffect(() => {
+        // const fnMainFilterList = async () => {
+        //     await axios({
+        //         method: "GET",
+        //         url: "/api/popular",
+        //         params: {
+        //             count: 8, //요청 데이터 개수
+        //             filter: SELECTICONFILTER.toString(), //요청 플랫폼 필터
+        //         },
+        //     })
+        //         .then((res) => {
+        //             let mainData = res.data.data;
+        //             let maxLength = res.data.maxLength;
+        //             setData(mainData);
+        //             setDataLength(maxLength);
+        //             // console.log("data : ", mainData);
+        //         })
+        //         .catch((e) => {
+        //             console.log("error: ", e);
+        //         });
+        // };
+        // fnMainFilterList();
     }, [SELECTICONFILTER]);
 
     //더보기 버튼 함수
-    const fnMore = async () => {
-        //필터도 선택되었다면
-        if (SELECTICONFILTER.length > 0) {
-            await axios({
-                method: "GET",
-                url: "/api/main",
-                params: {
-                    count: viewCount + 5, //요청 데이터 개수
-                    filter: SELECTICONFILTER.toString(), //요청 플랫폼 필터
-                },
-            })
-                .then((res) => {
-                    let result = res.data.result;
+    // const fnMore = async () => {
+    //     if(SELECTICONFILTER.length > 0){
+    //         await axios({
+    //             method: "GET",
+    //             url: "/api/popular",
+    //             params: {
+    //                 count: viewCount + 8, //요청 데이터 개수
+    //                 filter: SELECTICONFILTER.toString(), //요청 플랫폼 필터
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 let mainData = res.data.data;
+    //                 setData(mainData);
+    //                 setViewCount(viewCount + 8);
 
-                    setData(result);
-                    setViewCount(viewCount + 5);
-                })
-                .catch((e) => {
-                    console.log("error: ", e);
-                });
-        } else {
-            //필터는 선택 안되었다면
-            await axios({
-                method: "GET",
-                url: "/api/main",
-                params: {
-                    count: viewCount + 5, //요청 데이터 개수
-                    filter: "all",
-                },
-            })
-                .then((res) => {
-                    let result = res.data.result;
+    //                 if (viewCount + 8 > dataLength)
+    //                     moreRef.current.classList.add("hidden"); //더 이상 불러올 데이터가 없다면 display:none
+    //             })
+    //             .catch((e) => {
+    //                 console.log("error: ", e);
+    //             });
+    //     }else{
+    //         await axios({
+    //             method: "GET",
+    //             url: "/api/popular",
+    //             params: {
+    //                 count: viewCount + 8, //요청 데이터 개수
+    //             },
+    //         })
+    //             .then((res) => {
+    //                 let mainData = res.data.data;
+    //                 setData(mainData);
+    //                 setViewCount(viewCount + 8);
 
-                    setData(result);
-                    setViewCount(viewCount + 5);
-                })
-                .catch((e) => {
-                    console.log("error: ", e);
-                });
-        }
-    };
+    //                 if (viewCount + 8 > dataLength)
+    //                     moreRef.current.classList.add("hidden"); //더 이상 불러올 데이터가 없다면 display:none
+    //             })
+    //             .catch((e) => {
+    //                 console.log("error: ", e);
+    //             });
+    //     }
+
+    // };
 
     return (
         <div className="mt-8 md:mt-12 flex flex-col gap-6 relative">
@@ -133,26 +117,16 @@ const MainList = () => {
                         <h2 className="text-xl xl:text-2xl font-bold tracking-tight">
                             🔥&nbsp;인기 컨텐츠
                         </h2>
-                        <h4 className="ml-auto text-sm">
-                            결과 : {data.length}
-                        </h4>
                     </div>
 
-                    {data.length === 0 ? (
-                        // skeleton ui
+                    {data.length < 1 ? (
                         <>
                             <div className="grid gap-y-10 gap-x-6 xl:gap-x-8 grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
-                                {new Array(10).fill().map((el) => (
-                                    <div className="relative">
-                                        <div
-                                            key={el}
-                                            className="h-40 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-slate-700 lg:aspect-none relative animate-pulse2"
-                                        ></div>
-                                        <div>
-                                            <h3 className="h-6 w-full bg-slate-700 mt-2 animate-pulse2 rounded-md"></h3>
-                                            <h4 className="h-6 text-slate-50/70 mt-1 bg-slate-700 animate-pulse2 rounded-md"></h4>
-                                        </div>
-                                    </div>
+                                {new Array(8).fill().map((el) => (
+                                    <div
+                                        key={el}
+                                        className="h-56 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-slate-700 lg:aspect-none relative animate-pulse2"
+                                    ></div>
                                 ))}
                             </div>
                         </>
@@ -168,7 +142,7 @@ const MainList = () => {
                                         <>
                                             <div key={el.id}>
                                                 <div className="relative">
-                                                    <div className="h-40 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-slate-800 lg:aspect-none relative">
+                                                    <div className="h-56 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-slate-800 lg:aspect-none relative">
                                                         <Image
                                                             src={el.imgUrl}
                                                             alt={el.title}
@@ -236,9 +210,7 @@ const MainList = () => {
                                                         <h3 className="text-sm font-semibold w-full lg:text-base break-all line-clamp-2 mt-2">
                                                             {el.title}
                                                         </h3>
-                                                        <h4 className="text-xs lg:text-sm text-slate-50/70 mt-1">
-                                                            {el.channelName}
-                                                        </h4>
+                                                        <h4 className="text-xs lg:text-sm text-slate-50/70 mt-1">{el.channelName}</h4>
                                                     </div>
                                                 </div>
                                             </div>

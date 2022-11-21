@@ -12,16 +12,6 @@ import * as common from "../../js/common";
 const iconData = [
     { name: "Youtube", imgUrl: "/image/icon/youtube.png" },
     { name: "Twitch", imgUrl: "/image/icon/twitch.png" },
-    { name: "NaverTV", imgUrl: "/image/icon/naverTV.png" },
-    { name: "KakaoTV", imgUrl: "/image/icon/kakaoTV.png" },
-    { name: "Netflix", imgUrl: "/image/icon/netflix.png" },
-    { name: "AfreecaTV", imgUrl: "/image/icon/afreecaTV.png" },
-    { name: "AppleTV", imgUrl: "/image/icon/appleTV.png" },
-    { name: "Watcha", imgUrl: "/image/icon/watcha.png" },
-    { name: "Wavve", imgUrl: "/image/icon/wavve.png" },
-    { name: "CoupangPlay", imgUrl: "/image/icon/coupangPlay.png" },
-    { name: "DisneyPlus", imgUrl: "/image/icon/disneyPlus.png" },
-    { name: "Tving", imgUrl: "/image/icon/tving.png" },
 ];
 
 const IconFilter = () => {
